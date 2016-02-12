@@ -47,10 +47,7 @@ void affiche_arbre(NOEUD *p, int col)
 
 int nombre_noeud(NOEUD * p)
 {
-	if (p == NULL)
-		return 1;
-	else
-		return nombre_noeud(p->gauche) + nombre_noeud(p->droite);
+	
 }
 
 int main()
