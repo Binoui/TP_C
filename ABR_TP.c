@@ -45,12 +45,23 @@ void affiche_arbre(NOEUD *p, int col)
 }
 /*****************************************************************************/
 
-int nombre_noeud(NOEUD * p)
+int nombre_feuilles(NOEUD * p)
 {
 	if (p == NULL)
 		return 1;
 	else
 		return nombre_noeud(p->gauche) + nombre_noeud(p->droite);
+}
+
+int affichage_prefixe(NOEUD * p)
+{
+	int i;
+	if (p)
+	{
+		for (i=0;i<col;i++) printf("   ");
+			printf("%d\n",p->valeur);
+		
+	}
 }
 
 int main()
@@ -69,6 +80,7 @@ int main()
 			case 'v' : scanf("%d",&i); a[i] = arbre_vide(); break;     
 			case 'i' : scanf("%d %d",&x,&i); a[i] = insere(a[i],x); break;    
 			case 'a' : scanf("%d",&i); affiche_arbre(a[i],1); break;           
+			case 'n' : scanf("%d",&i); nombre_feuilles(a[i]); break;
 			case 'q' : exit(0); 
 		}
 		printf("\n"); c = getchar();
