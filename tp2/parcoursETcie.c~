@@ -29,8 +29,8 @@ void parcours_inf(NOEUD *p)
 void parcours_suf(NOEUD *p) 
 {
 	if (p){ 
-		parcours_suf(p->gauche); 
-		parcours_suf(p->droit); 
+		parcours_inf(p->gauche); 
+		parcours_inf(p->droit); 
 		printf("%d - ",p->valeur);
 	} 	 
 } 
