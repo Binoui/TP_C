@@ -29,11 +29,25 @@ void parcours_inf(NOEUD *p)
 void parcours_suf(NOEUD *p) 
 {
 	if (p){ 
-		parcours_inf(p->gauche); 
-		parcours_inf(p->droit); 
+		parcours_suf(p->gauche); 
+		parcours_suf(p->droit); 
 		printf("%d - ",p->valeur);
 	} 	 
 } 
+
+
+void affiche_arbreP(NOEUD *p, int col){
+	int i;
+	if (p){
+	 	affiche_arbre(p->droit,col+1);
+	    for (i=0;i<col;i++){ 
+	    	printf("   ");
+	    }
+     	printf("%d\n",p->valeur);
+     	affiche_arbre(p->gauche,col+1);
+    }  	
+}
+
 
 int main (){
 

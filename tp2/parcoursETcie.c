@@ -35,6 +35,15 @@ void parcours_suf(NOEUD *p)
 	} 	 
 } 
 
+
+void compteN(NOEUD *p){
+	if (p){
+		return 1+compteN(p->gauche)+compteN(p->droit);
+    } 
+    return 0;
+}
+
+
 int main (){
 
 	NOEUD* p = arbre_vide();
