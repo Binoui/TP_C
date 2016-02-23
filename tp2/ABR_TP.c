@@ -4,88 +4,89 @@
 /*****************************************************************************/
 
 #include <stdio.h>
+#include "./file.h"
 #include <stdlib.h>
 
 typedef int element;
-
-typedef struct noeud
-{
-  element valeur;
-  struct noeud *gauche, *droit;
-} NOEUD, *ABR;
-
 
 /*****************************************************************************/
 NOEUD *arbre_vide() {return NULL; }
 /*****************************************************************************/
 NOEUD *insere(NOEUD *p, element x)
 {
-  if (p == NULL) 
-  {
-    p = (NOEUD *)malloc(sizeof(NOEUD));
-    p->valeur = x;p->gauche = NULL;p->droit = NULL;
-  }
-  else if (x == p->valeur) printf("%d est deja dans l'arbre\n",x);
-  else if (x < p->valeur)  p->gauche = insere(p->gauche,x);
-  else p->droit  = insere(p->droit,x);
+    if (p == NULL) 
+    {
+        p = (NOEUD *)malloc(sizeof(NOEUD));
+        p->valeur = x;p->gauche = NULL;p->droit = NULL;
+    }
+    else if (x == p->valeur) printf("%d est deja dans l'arbre\n",x);
+    else if (x < p->valeur)  p->gauche = insere(p->gauche,x);
+    else p->droit  = insere(p->droit,x);
 
-  return(p);        
+    return(p);        
 }
 /*****************************************************************************/
 void affiche_arbre(NOEUD *p, int col)
 {
-  int i;
-  if (p)
-  {
-    affiche_arbre(p->droit,col+1);
-    for (i=0;i<col;i++) printf("   ");
-      printf("%d\n",p->valeur);
-    affiche_arbre(p->gauche,col+1);
-  }   
+    int i;
+    if (p)
+    {
+        affiche_arbre(p->droit,col+1);
+        for (i=0;i<col;i++) printf("   ");
+            printf("%d\n",p->valeur);
+        affiche_arbre(p->gauche,col+1);
+    }   
 }
 /*****************************************************************************/
 
 int nombre_feuilles(NOEUD * p)
 {
-  if (p == NULL)
-    return 1;
-  else
-    return nombre_noeud(p->gauche) + nombre_noeud(p->droite);
+    if (p == NULL)
+        return 1;
+    else
+        return nombre_feuilles(p->gauche) + nombre_feuilles(p->droit);
 }
 
-int affichage_prefixe(NOEUD * p)
+void parcours_largeur(NOEUD * rac)
 {
-  int i;
-  if (p)
-  {
-    for (i=0;i<col;i++) printf("   ");
-      printf("%d\n",p->valeur);
-    
-  }
-}
-
-int main()
-{
-  NOEUD *a[3]; /* on peut travailler sur 3 arbres */
-  char c;
-  int i, j;
-  element x;
-  char nom_fich[20];
-  FILE *fich;
-
-  do {
-    printf("Commande ? "); c = getchar();
-    switch(c)
+    file * f = creer_file();
+    enfiler(f, rac);
+        
+    NOEUD * p;
+    while (! file_estVide(f))
     {
-      case 'v' : scanf("%d",&i); a[i] = arbre_vide(); break;     
-      case 'i' : scanf("%d %d",&x,&i); a[i] = insere(a[i],x); break;    
-      case 'a' : scanf("%d",&i); affiche_arbre(a[i],1); break;           
-      case 'n' : scanf("%d",&i); nombre_feuilles(a[i]); break;
-      case 'q' : exit(0); 
+        p = defiler(f);
+        printf("%d ", p->valeur);
+        if (p->gauche) enfiler(f, p->gauche);
+        if (p->droit) enfiler(f, p->droit);
     }
-    printf("\n"); c = getchar();
-  }
-  while (1);
+    printf("\n");
+}
+
+/*int main()
+{
+    NOEUD *a[3]; 
+    /* on peut travailler sur 3 arbres 
+    char c;
+    int i, j;
+    element x;
+    char nom_fich[20];
+    FILE *fich;
+
+    do {
+        printf("Commande ? "); c = getchar();
+        switch(c)
+        {
+            case 'v' : scanf("%d",&i); a[i] = arbre_vide(); break;     
+            case 'i' : scanf("%d %d",&x,&i); a[i] = insere(a[i],x); break;    
+            case 'a' : scanf("%d",&i); affiche_arbre(a[i],1); break;           
+            case 'n' : scanf("%d",&i); nombre_feuilles(a[i]); break;
+            case 'p' : scanf("%d",&i); parcours_largeur(a[i]); break;
+            case 'q' : exit(0); 
+        }
+        printf("\n"); c = getchar();
+    }
+    while (1);
 }
 /****************************************************************************/  
 

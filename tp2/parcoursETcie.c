@@ -16,7 +16,6 @@ void parcours_pref(NOEUD *p)
 	} 	 
 } 
 
-
 void parcours_inf(NOEUD *p) 
 {
 	if (p){ 
@@ -35,14 +34,23 @@ void parcours_suf(NOEUD *p)
 	} 	 
 } 
 
-
-void compteN(NOEUD *p){
+int compteN(NOEUD *p){
 	if (p){
 		return 1+compteN(p->gauche)+compteN(p->droit);
     } 
     return 0;
 }
 
+int parcours_inf_sup(NOEUD * p)
+{
+	if (p)
+	{
+		printf("%d ", p->valeur);
+		parcours_inf_sup(p->gauche);
+		parcours_inf_sup(p->droit);
+		printf("%d ", p->valeur);
+	}
+}
 
 int main (){
 
@@ -67,6 +75,8 @@ int main (){
 	
 	parcours_suf(p);
 	printf("\n");
+
+	parcours_largeur(p);
 
 	return 0;
 }
