@@ -38,7 +38,6 @@ void affiche_arbre(NOEUD *p, int col)
     }   
 }
 /*****************************************************************************/
-
 int nombre_feuilles(NOEUD * p)
 {
     if (p == NULL)
@@ -48,6 +47,14 @@ int nombre_feuilles(NOEUD * p)
 }
 
 void parcours_largeur(NOEUD * rac)
+{
+  if (p == NULL)
+    return 1;
+  else
+    return nombre_feuilles(p->gauche) + nombre_feuilles(p->droit);
+}
+
+int affichage_prefixe(NOEUD * p)
 {
     file * f = creer_file();
     enfiler(f, rac);
@@ -62,8 +69,8 @@ void parcours_largeur(NOEUD * rac)
     }
     printf("\n");
 }
-
-/*int main()
+/*
+int main()
 {
     NOEUD *a[3]; 
     /* on peut travailler sur 3 arbres 
@@ -72,6 +79,13 @@ void parcours_largeur(NOEUD * rac)
     element x;
     char nom_fich[20];
     FILE *fich;
+
+  NOEUD *a[3]; /* on peut travailler sur 3 arbres *//*
+  char c;
+  int i, j;
+  element x;
+  char nom_fich[20];
+  FILE *fich;
 
     do {
         printf("Commande ? "); c = getchar();

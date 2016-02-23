@@ -1,12 +1,15 @@
 /*****************************************************************************/
-/*   G.AUFFRET                      ABR_TP.c                     Fevrier 2016*/
+/*   G.AUFFRET et B.HOUX            ABR_TP.c                     Fevrier 2016*/
 /*                      Arbres binaires de recherche                         */
 /*****************************************************************************/
 
 #include <stdio.h>
 #include <stdlib.h>
 #include "abr.h"
+#include "../tp1/classique/fileClassique.h"
 
+
+/*RGD*/
 void parcours_pref(NOEUD *p) 
 {
 	if (p){
@@ -16,6 +19,7 @@ void parcours_pref(NOEUD *p)
 	} 	 
 } 
 
+/*GRD*/
 void parcours_inf(NOEUD *p) 
 {
 	if (p){ 
@@ -25,6 +29,7 @@ void parcours_inf(NOEUD *p)
 	} 	 
 }
 
+/*GDR*/
 void parcours_suf(NOEUD *p) 
 {
 	if (p){ 
@@ -52,6 +57,18 @@ int parcours_inf_sup(NOEUD * p)
 	}
 }
 
+int parcoursAffichage(NOEUD *p){
+  int nbn=0;
+  if(p){
+    printf("Parcours prefixe : %d\n",p->valeur);
+    nbn+=parcoursAffichage(p->gauche);
+    nbn+=parcoursAffichage(p->droit);
+    printf("\tParcours suffixe : %d\n",p->valeur);
+    nbn++;
+  }
+  return nbn;
+}
+
 int main (){
 
 	NOEUD* p = arbre_vide();
@@ -67,14 +84,22 @@ int main (){
 	
 	affiche_arbre(p,1);
 	
+
+	printf("Parcours prefixe : ");
 	parcours_pref(p);
 	printf("\n");
 	
+	printf("Parcours infixe : ");
 	parcours_inf(p);
 	printf("\n");
 	
+	printf("Parcours suffixe : ");
 	parcours_suf(p);
 	printf("\n");
+	
+	printf("Il y a %d noeud(s)\n",compteN(p));
+
+	printf("nb de noeuds : %d\n",parcoursAffichage(p));
 
 	parcours_largeur(p);
 
