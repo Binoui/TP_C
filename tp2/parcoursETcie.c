@@ -53,7 +53,7 @@ int parcoursAffichage(NOEUD *p){
     printf("Parcours prefixe : %d\n",p->valeur);
     nbn+=parcoursAffichage(p->gauche);
     nbn+=parcoursAffichage(p->droit);
-    printf("Parcours suffixe : %d\n",p->valeur);
+    printf("\tParcours suffixe : %d\n",p->valeur);
     nbn++;
   }
   return nbn;
@@ -77,12 +77,16 @@ int main (){
 	
 	affiche_arbre(p,1);
 	
+
+	printf("Parcours prefixe : ");
 	parcours_pref(p);
 	printf("\n");
 	
+	printf("Parcours infixe : ");
 	parcours_inf(p);
 	printf("\n");
 	
+	printf("Parcours suffixe : ");
 	parcours_suf(p);
 	printf("\n");
 	
