@@ -50,9 +50,9 @@ int nombre_feuilles(NOEUD * p)
   if (p == NULL)
     return 1;
   else
-    return nombre_noeud(p->gauche) + nombre_noeud(p->droite);
+    return nombre_feuilles(p->gauche) + nombre_feuilles(p->droit);
 }
-
+/*
 int affichage_prefixe(NOEUD * p)
 {
   int i;
@@ -63,10 +63,10 @@ int affichage_prefixe(NOEUD * p)
     
   }
 }
+/*
+int main(){
 
-int main()
-{
-  NOEUD *a[3]; /* on peut travailler sur 3 arbres */
+  NOEUD *a[3]; /* on peut travailler sur 3 arbres *//*
   char c;
   int i, j;
   element x;
