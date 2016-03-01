@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <stdlib.h>
+
 typedef struct
 {
 	char lettre;
@@ -5,7 +8,28 @@ typedef struct
 	noeud * fils;
 } noeud;
 
-dico * insertion(noeud * dico, char * mot, int taille, int index)
+noeud* creeDico (){
+	return NULL;
+}
+
+int recherche (char* clef, noeud* d,int taille, int index){
+	int trouve = 0;
+	if (d ==NULL)
+		return 0;
+
+	if (d->lettre != clef[index]) 
+		trouve = recherche (clef, d->frere, taille, index)
+	else{
+		index ++;
+		if (index == taille)
+			trouve = 1;
+		else
+			trouve = recherche (clef, d->fils, taille, index);
+	}
+	return trouve;
+} 
+
+void insertion(noeud * dico, char * mot, int taille, int index)
 {
 	noeud * nouveau;
 
@@ -39,7 +63,6 @@ dico * insertion(noeud * dico, char * mot, int taille, int index)
 			}
 		}
 	}
-	return dico;
 }
 
 void chargement(noeud * arbre, char * chemin)
@@ -63,7 +86,14 @@ void chargement(noeud * arbre, char * chemin)
 
 int main(int argc, char *argv[])
 {
+	noeud * arbre = creeDico();
 
+	insertion(arbre, "arbre", 6, 0);
+	insertion(arbre, "prout", 6, 0);
+	insertion(arbre, "test", 5, 0);
+
+	
 
 	return 0;
 }
+
