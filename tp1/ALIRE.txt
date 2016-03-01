@@ -1,0 +1,57 @@
+**** File classique ****
+
+Compilation : 
+gcc fileClassique.c -o fileClassique
+
+Exécution :
+./fileClassique
+
+Trace d'exécution :
+
+Création file 1
+|
+Affichage file 1
+| 50 | 25 | 2 | 7 |
+Défile file 1
+| 25 | 2 | 7 |
+Enfile file 1
+| 25 | 2 | 7 | 7 |
+Création file 2
+| 3 | 4 | 5 |
+Concaténation file 1 et 2
+| 25 | 2 | 7 | 7 | 3 | 4 | 5 |
+Défiler file 1
+|
+File 1 est vide : 1
+
+
+
+**** File Circulaire ****
+
+Compilation : 
+gcc fileClassique.c -o fileClassique
+
+Exécution :
+./fileClassique
+
+Trace d'exécution :
+
+Est ce que la liste est vide : 1
+Enfile 15
+15 -> 
+
+Est ce que la liste est vide : 0
+Défile, enfile 25 et 6
+25 -> 6 -> 
+
+On enleve la valeur 25
+Est ce que la liste est vide : 0
+6 -> 
+
+Deuxième file :
+5 -> 325 -> 64 -> 
+
+Concaténation : 
+5 -> 325 -> 64 -> 6 -> 
+
+6 -> 5 -> 325 -> 64 -> 

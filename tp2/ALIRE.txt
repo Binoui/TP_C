@@ -1,0 +1,51 @@
+TP2 Auffret / Houx TP1
+
+Les fonctions sur les arbres se trouvent dans ABR_TP.c et fonctionsABR.c
+Ces deux fichiers sources contiennent chacun un main. Celui de ABR_TP possède le menu (en commentaire). Pour tester plus facilement, nous avons créé un autre main dans fonctionsABR qui remplit un arbre en dur dans le code.
+
+Ces deux fichiers sources utilisent chacun une structure file différente. fonctionsABR.c utilise la file du TP1. ABR_TP.c utilise une file différente qui stocke des NOEUDS.
+
+Compilation : 
+make abr
+
+Execution : 
+./abr
+
+
+Trace d'exécution à partir d'un arbre donné en dur dans le main de fonctionsABR
+
+Arbre : 
+         70
+      50
+            45
+         32
+   25
+         20
+      15
+            6
+         5
+
+Parcours prefixe : 25 - 15 - 5 - 6 - 20 - 50 - 32 - 45 - 70 - 
+Parcours infixe : 5 - 6 - 15 - 20 - 25 - 32 - 45 - 50 - 70 - 
+Parcours suffixe : 6 - 5 - 20 - 15 - 45 - 32 - 70 - 50 - 25 - 
+Il y a 9 noeud(s)
+Parcours prefixe : 25
+Parcours prefixe : 15
+Parcours prefixe : 5
+Parcours prefixe : 6
+	Parcours suffixe : 6
+	Parcours suffixe : 5
+Parcours prefixe : 20
+	Parcours suffixe : 20
+	Parcours suffixe : 15
+Parcours prefixe : 50
+Parcours prefixe : 32
+Parcours prefixe : 45
+	Parcours suffixe : 45
+	Parcours suffixe : 32
+Parcours prefixe : 70
+	Parcours suffixe : 70
+	Parcours suffixe : 50
+	Parcours suffixe : 25
+nb de noeuds : 9
+Parcours en largeur : 25 15 50 5 20 32 70 6 45

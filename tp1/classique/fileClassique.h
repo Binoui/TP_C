@@ -1,3 +1,10 @@
+/**
+ * @file fileClassique.c
+ * @brief Définition de la structure file
+ * @author Gwladys Auffret / Benjamin Houx TP1 PROMO2018
+ * @date 02/2016
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 

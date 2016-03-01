@@ -1,6 +1,9 @@
-/******************************************************************************/
-/* G. Auffret                    fileCirculaire.c                Fevrier 2016 */
-/******************************************************************************/
+/**
+ * @file fileCirculaire.c
+ * @brief Définition de la structure file
+ * @author Gwladys Auffret / Benjamin Houx TP1 PROMO2018
+ * @date 02/2016
+ */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -113,31 +116,35 @@ int main()
 
 	printf("Est ce que la liste est vide : %d\n",fileC_vide(f));
 
+	printf("Enfile 15\n");
 	enfilerC(f,15);
 	afficheFC(f);
-	defiler(f);
 	printf("Est ce que la liste est vide : %d\n",fileC_vide(f));
+
+	printf("Défile, enfile 25 et 6\n");
+	defiler(f);
 	enfilerC(f,25);
 	
 	enfilerC(f,6);
 
 	afficheFC(f);
 	
+	printf("On enleve la valeur %d\n",defiler(f));
 
-	printf("On a enleve la valeur %d\n",defiler(f));
 	printf("Est ce que la liste est vide : %d\n",fileC_vide(f));
 	afficheFC(f);
-	enfilerC(f,6);
+
 
 	enfilerC(g,5);
 	enfilerC(g,325);
 	enfilerC(g,64);
+	printf("Deuxième file :\n");
 	afficheFC(g);
 
+	printf("Concaténation : \n");
 	concatC(f,g);
 	afficheFC(f);
-	defiler(f);
-
+	afficheFC(g);
 
 	return 0;
 }

@@ -1,3 +1,10 @@
+/**
+ * @file file.c
+ * @brief Définition des files contenant des noeuds
+ * @author Gwladys Auffret / Benjamin Houx TP1 PROMO2018
+ * @date 02/2016
+ */
+
 #include "./file.h"
 
 struct Cellule

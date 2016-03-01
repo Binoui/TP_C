@@ -1,7 +1,10 @@
-/*****************************************************************************/
-/*   C. PORQUET                     ABR_TP.c                   Novembre 2012 */
-/*                      Arbres binaires de recherche                         */
-/*****************************************************************************/
+/**
+ * @file ABR_TP.c
+ * @brief Contient les fonctions de définitions de l'arbre de recherche
+ * @author Gwladys Auffret / Benjamin Houx TP1 PROMO2018
+ * @date 02/2016
+ */
+
 
 #include <stdio.h>
 #include "./file.h"
@@ -37,7 +40,8 @@ void affiche_arbre(NOEUD *p, int col)
         affiche_arbre(p->gauche,col+1);
     }   
 }
-/*****************************************************************************/
+
+/* Retourne le nombre de feuilles de l'arbre */
 int nombre_feuilles(NOEUD * p)
 {
     if (p == NULL)
@@ -46,15 +50,8 @@ int nombre_feuilles(NOEUD * p)
         return nombre_feuilles(p->gauche) + nombre_feuilles(p->droit);
 }
 
+/* Affiche l'arbre en largeur */
 void parcours_largeur(NOEUD * rac)
-{
-  if (p == NULL)
-    return 1;
-  else
-    return nombre_feuilles(p->gauche) + nombre_feuilles(p->droit);
-}
-
-int affichage_prefixe(NOEUD * p)
 {
     file * f = creer_file();
     enfiler(f, rac);
@@ -73,7 +70,7 @@ int affichage_prefixe(NOEUD * p)
 int main()
 {
     NOEUD *a[3]; 
-    /* on peut travailler sur 3 arbres 
+    /* on peut travailler sur 3 arbres  *//*
     char c;
     int i, j;
     element x;
@@ -101,7 +98,7 @@ int main()
         printf("\n"); c = getchar();
     }
     while (1);
-}
+}*/
 /****************************************************************************/  
 
 

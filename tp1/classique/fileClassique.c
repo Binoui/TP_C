@@ -1,4 +1,11 @@
-#include "./fileClassique.h"
+/**
+ * @file fileClassique.c
+ * @brief Définition de la structure file
+ * @author Gwladys Auffret / Benjamin Houx TP1 PROMO2018
+ * @date 02/2016
+ */
+
+ #include "./fileClassique.h"
 
 struct Cellule
 {
@@ -102,6 +109,7 @@ int main(int argc, char *argv[])
 	
 	file * f1 = creer_file();
 
+	printf("Création file 1\n");
 	afficher_file(f1);
 
 	enfiler(f1, 50);
@@ -109,14 +117,16 @@ int main(int argc, char *argv[])
 	enfiler(f1, 2);
 	enfiler(f1, 7);
 
+	printf("Affichage file 1\n");
 	afficher_file(f1);
 
+	printf("Défile file 1\n");
 	defiler(f1);
 
 	afficher_file(f1);
 
 	enfiler(f1, 7);
-
+	printf("Enfile file 1\n");
 	afficher_file(f1);
 
 	file * f2 = creer_file();
@@ -125,8 +135,10 @@ int main(int argc, char *argv[])
 	enfiler(f2, 4);
 	enfiler(f2, 5);
 
+	printf("Création file 2\n");
 	afficher_file(f2);
 
+	printf("Concaténation file 1 et 2\n");
 	concatener_files(f1, f2);
 
 	afficher_file(f1);
@@ -136,35 +148,16 @@ int main(int argc, char *argv[])
 	defiler(f1);
 	defiler(f1);
 	defiler(f1);
-	defiler(f1);
-	defiler(f1);
-	defiler(f1);
-	defiler(f1);
-	defiler(f1);
-	defiler(f1);
-	defiler(f1);
-	defiler(f1);
-	defiler(f1);
-	defiler(f1);
-	defiler(f1);
-	defiler(f1);
-	defiler(f1);
-	defiler(f1);
-	defiler(f1);
-	defiler(f1);
-	defiler(f1);
 
+	printf("Défiler file 1\n");
 	afficher_file(f1);
 
+	printf("File 1 est vide : ");
 	printf("%d\n", file_estVide(f2));
 
 	destruction(f2);
 
 	destruction(f1);
-
-	// afficher_file(f1);
-
-	// afficher_file(f2);
 
 	return 0;
 }
