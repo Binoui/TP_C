@@ -55,10 +55,18 @@ void insertion(noeud * dico, char * mot, int taille, int index)
 					dico->frere = nouveau;
 				}	
 
-				insertion(dico->fils, mot, taille, index+1);)
+				insertion(dico->fils, mot, taille, index+1);
 			}
 			else
 			{
+				if (dico->fils != NULL && dico->fils->lettre > mot[index+1])
+				{
+					nouveau = malloc(sizeof(noeud));
+					nouveau->lettre = mot[index+1];
+					nouveau->fils = dico->fils;
+					dico->fils = nouveau;
+				}	
+
 				insertion(dico->fils, mot, taille, index+1);
 			}
 		}
@@ -67,19 +75,24 @@ void insertion(noeud * dico, char * mot, int taille, int index)
 
 void chargement(noeud * arbre, char * chemin)
 {
-	int i;
-	char * 
+	int tailleDico, i, j;
+	char[100] buffer;
 	FILE * fich = fopen(chemin, "r");
 	
 	if (fich == NULL)
 		printf("Erreur fichier\n");
 	else
 	{
-		fprintf(chemin, "%d\n", &tailleDico);
-		for (i = 0; i < taille; i++)
-		{
-			fprintf(stderr, "%s\n", );
+		fprintf(fich, "%d\n", &tailleDico);
 
+		for (i = 0; i < tailleDico; i++)
+		{
+			for (j = 0; cara != '\0'; j++)
+			{
+				fprintf(fich, "%c", buffer);
+			}
+
+			insertion(arbre, buffer, j, 0);
 		}
 	}
 }
@@ -92,7 +105,7 @@ int main(int argc, char *argv[])
 	insertion(arbre, "prout", 6, 0);
 	insertion(arbre, "test", 5, 0);
 
-	
+
 
 	return 0;
 }
