@@ -1,24 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "dico.h"
 
-typedef struct
-{
-	char lettre;
-	noeud * frere;
-	noeud * fils;
-} noeud;
 
-noeud* creeDico (){
+
+noeud* creeDico(){
 	return NULL;
 }
 
-int recherche (char* clef, noeud* d,int taille, int index){
+int recherche(char* clef, noeud* d,int taille, int index){
 	int trouve = 0;
 	if (d ==NULL)
 		return 0;
 
 	if (d->lettre != clef[index]) 
-		trouve = recherche (clef, d->frere, taille, index)
+		trouve = recherche (clef, d->frere, taille, index);
 	else{
 		index ++;
 		if (index == taille)
@@ -29,51 +25,55 @@ int recherche (char* clef, noeud* d,int taille, int index){
 	return trouve;
 } 
 
-void insertion(noeud * dico, char * mot, int taille, int index)
+noeud* insertion(noeud * dico, char * mot, int taille, int index)
 {
 	noeud * nouveau;
-
 	if (index < taille)
 	{
+		/* nouvelle lettre, on crée un noeud */
 		if (dico == NULL)
 		{
 			dico = malloc(sizeof(noeud));
 			dico->lettre = mot[index];
 
-			insertion(dico->fils, mot, taille, index+1);
+			dico->fils = insertion(dico->fils, mot, taille, index+1);
 		}
+		/* il y a une lettre */
 		else
 		{	
+			/* si la lettre à placer est plus grande, on va dans les frères*/
 			if (dico->lettre > mot[index])
 			{
-
-				if (dico->frere != NULL && dico->frere->lettre > mot[index+1])
+				/* on regarde les frères pour chercher la lettre*/
+				if (dico->frere != NULL && (dico->frere)->lettre > mot[index+1])
 				{
 					nouveau = malloc(sizeof(noeud));
 					nouveau->lettre = mot[index+1];
 					nouveau->frere = dico->frere;
 					dico->frere = nouveau;
-				}	
+				}
 
 				insertion(dico->fils, mot, taille, index+1);
+				dico->fils = insertion(dico->fils, mot, taille, index+1);
 			}
-			else
+			else 
 			{
-				if (dico->fils != NULL && dico->fils->lettre > mot[index+1])
+				if (dico->lettre < mot[index])
 				{
 					nouveau = malloc(sizeof(noeud));
-					nouveau->lettre = mot[index+1];
-					nouveau->fils = dico->fils;
+					nouveau->lettre = mot[index];
+					nouveau->frere = dico->fils;
 					dico->fils = nouveau;
-				}	
+				}
 
-				insertion(dico->fils, mot, taille, index+1);
+				dico->fils = insertion(dico->fils, mot, taille, index+1);
 			}
 		}
 	}
+	return dico;
 }
 
-void chargement(noeud * arbre, char * chemin)
+/*void chargement(noeud * arbre, char * chemin)
 {
 	int tailleDico, i, j;
 	char[100] buffer;
@@ -90,9 +90,26 @@ void chargement(noeud * arbre, char * chemin)
 			for (j = 0; cara != '\0'; j++)
 			{
 				fprintf(fich, "%c", buffer);
-			}
+			}*/
 
-			insertion(arbre, buffer, j, 0);
+void afficheD(noeud* d, int tab)
+{
+	int i;
+	printf("%c -> ", d->lettre);
+
+	if((d->fils)||(d->frere)){
+		if(d->fils){
+			afficheD(d->fils, tab+1);
+			printf("Fin\n");
+
+		}
+		if (d->frere){
+			printf("\n");
+			for (i=0;i<tab;i++){
+				printf("\t");
+			}
+			printf("-> ");
+			afficheD(d->frere, tab);
 		}
 	}
 }
@@ -101,12 +118,12 @@ int main(int argc, char *argv[])
 {
 	noeud * arbre = creeDico();
 
-	insertion(arbre, "arbre", 6, 0);
-	insertion(arbre, "prout", 6, 0);
-	insertion(arbre, "test", 5, 0);
-
-
-
+	arbre = insertion(arbre, "arbre\0", 6, 0);
+	afficheD(arbre,0);
+	arbre = insertion(arbre, "arbuste\0", 8, 0);
+	afficheD(arbre,0);
+	printf("\n");
 	return 0;
+
 }
 
