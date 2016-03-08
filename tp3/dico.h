@@ -9,7 +9,7 @@ noeud* creeDico ();
 
 int recherche (char* clef, noeud* d,int taille, int index);
 
-void insertion(noeud * dico, char * mot, int taille, int index);
+noeud* insertion(noeud * dico, char * mot, int taille, int index);
 
 void chargement(noeud * arbre, char * chemin);
 
