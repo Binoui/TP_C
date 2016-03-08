@@ -27,7 +27,8 @@ int recherche(char* clef, noeud* d,int taille, int index){
 
 noeud* insertion(noeud * dico, char * mot, int taille, int index)
 {
-	noeud * nouveau;
+	noeud * nouveau, * ptr;
+
 	if (index < taille)
 	{
 		/* nouvelle lettre, on crée un noeud */
@@ -35,41 +36,61 @@ noeud* insertion(noeud * dico, char * mot, int taille, int index)
 		{
 			dico = malloc(sizeof(noeud));
 			dico->lettre = mot[index];
-
 			dico->fils = insertion(dico->fils, mot, taille, index+1);
 		}
 		/* il y a une lettre */
 		else
 		{	
 			/* si la lettre à placer est plus grande, on va dans les frères*/
-			if (dico->lettre > mot[index])
+			if (mot[index] > dico->lettre)
 			{
-				/* on regarde les frères pour chercher la lettre*/
-				if (dico->frere != NULL && (dico->frere)->lettre > mot[index+1])
-				{
-					nouveau = malloc(sizeof(noeud));
-					nouveau->lettre = mot[index+1];
-					nouveau->frere = dico->frere;
-					dico->frere = nouveau;
-				}
-
-				insertion(dico->fils, mot, taille, index+1);
-				dico->fils = insertion(dico->fils, mot, taille, index+1);
-			}
-			else 
-			{
-				if (dico->lettre < mot[index])
+				/* TODOOOO : LE S ET T RENTRENT DEDANS ALORS QUILS DEVRAIENT PAS SEUL LE U DEVRAIT ????? */
+				printf("%c\n", mot[index]);
+				ptr = dico;
+				if (dico->frere == NULL)
 				{
 					nouveau = malloc(sizeof(noeud));
 					nouveau->lettre = mot[index];
-					nouveau->frere = dico->fils;
-					dico->fils = nouveau;
+					dico->frere = nouveau;
+				}
+				else
+				{
+					while (ptr->frere != NULL && mot[index] > ptr->frere->lettre)
+						ptr = ptr->frere;
+
+					nouveau = malloc(sizeof(noeud));
+					nouveau->lettre = mot[index];
+					nouveau->frere = ptr->frere;
+					ptr->frere = nouveau;
 				}
 
+				ptr->fils = insertion(ptr->fils, mot, taille, index+1);
+			}
+			else 
+			{
+				/* lettre plus petite, on décale les fils */
+				if (mot[index] < dico->lettre)
+				{
+					nouveau = malloc(sizeof(noeud));
+					nouveau->lettre = dico->lettre;
+					nouveau->fils = dico->fils;
+					nouveau->frere = dico->frere;
+					dico->lettre = mot[index];
+					dico->frere = nouveau;
+					dico->fils = NULL;
+				}
 				dico->fils = insertion(dico->fils, mot, taille, index+1);
 			}
 		}
 	}
+	else
+	{
+		dico = malloc(sizeof(noeud));
+		dico->lettre = '\0';
+		dico->fils = NULL;
+		dico->frere = NULL;
+	}
+
 	return dico;
 }
 
@@ -95,32 +116,33 @@ noeud* insertion(noeud * dico, char * mot, int taille, int index)
 void afficheD(noeud* d, int tab)
 {
 	int i;
-	printf("%c -> ", d->lettre);
-
-	if((d->fils)||(d->frere)){
-		if(d->fils){
-			afficheD(d->fils, tab+1);
-			printf("Fin\n");
-
-		}
-		if (d->frere){
-			printf("\n");
-			for (i=0;i<tab;i++){
-				printf("\t");
-			}
-			printf("-> ");
-			afficheD(d->frere, tab);
-		}
+	printf(" %c ->", d->lettre);
+	
+	if(d->fils){
+		afficheD(d->fils, tab+1);
 	}
+	else
+		printf(" Fin\n");
+
+	if (d->frere){
+		printf("\n");
+		for (i=0;i<tab;i++){
+			printf("    ");
+		}
+		printf("->");
+		afficheD(d->frere, tab);
+	}
+
 }
 
 int main(int argc, char *argv[])
 {
 	noeud * arbre = creeDico();
 
-	arbre = insertion(arbre, "arbre\0", 6, 0);
+	arbre = insertion(arbre, "arbre", 5, 0);
 	afficheD(arbre,0);
-	arbre = insertion(arbre, "arbuste\0", 8, 0);
+	printf("\n deuxième affichage \n");
+	arbre = insertion(arbre, "arbuste", 8, 0);
 	afficheD(arbre,0);
 	printf("\n");
 	return 0;
