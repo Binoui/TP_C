@@ -44,14 +44,13 @@ noeud* insertion(noeud * dico, char * mot, int taille, int index)
 			/* si la lettre à placer est plus grande, on va dans les frères*/
 			if (mot[index] > dico->lettre)
 			{
-				/* TODOOOO : LE S ET T RENTRENT DEDANS ALORS QUILS DEVRAIENT PAS SEUL LE U DEVRAIT ????? */
-				printf("%c\n", mot[index]);
 				ptr = dico;
 				if (dico->frere == NULL)
 				{
 					nouveau = malloc(sizeof(noeud));
 					nouveau->lettre = mot[index];
-					dico->frere = nouveau;
+					ptr->frere = nouveau;
+					ptr = nouveau;
 				}
 				else
 				{
@@ -93,8 +92,8 @@ noeud* insertion(noeud * dico, char * mot, int taille, int index)
 
 	return dico;
 }
-
-/*void chargement(noeud * arbre, char * chemin)
+/*
+void chargement(noeud * arbre, char * chemin)
 {
 	int tailleDico, i, j;
 	char[100] buffer;
@@ -105,13 +104,16 @@ noeud* insertion(noeud * dico, char * mot, int taille, int index)
 	else
 	{
 		fprintf(fich, "%d\n", &tailleDico);
-
 		for (i = 0; i < tailleDico; i++)
 		{
 			for (j = 0; cara != '\0'; j++)
 			{
-				fprintf(fich, "%c", buffer);
-			}*/
+				fgets(buffer, 100, fich);
+			}
+		}
+	}
+}*/
+
 
 void afficheD(noeud* d, int tab)
 {
@@ -142,10 +144,26 @@ int main(int argc, char *argv[])
 	arbre = insertion(arbre, "arbre", 5, 0);
 	afficheD(arbre,0);
 	printf("\n deuxième affichage \n");
-	arbre = insertion(arbre, "arbuste", 8, 0);
+	arbre = insertion(arbre, "arbuste", 7, 0);
 	afficheD(arbre,0);
+	printf("\n troisième affichage \n");
+	arbre = insertion(arbre, "arrivee", 7, 0);
+	afficheD(arbre,0);
+	printf("\n quatrième affichage \n");
+	arbre = insertion(arbre, "abreuvoir", 9, 0);
+	afficheD(arbre,0);
+	printf("\n cinquième affichage \n");
+	arbre = insertion(arbre, "ablation", 8, 0);
+	afficheD(arbre,0);
+	printf("\n sixième affichage \n");
+	arbre = insertion(arbre, "ablation", 8, 0);
+	afficheD(arbre,0);
+
+	printf("Est ce que le mot arbre appartient a notre arbre : %d (1 oui, 0 non)\n",recherche("arbre", arbre,5, 0));
+	printf("Est ce que le mot arbuisseau appartient a notre arbre : %d (1 oui, 0 non)\n",recherche("arbuisseau", arbre,10, 0));
+
+
 	printf("\n");
 	return 0;
 
 }
-
