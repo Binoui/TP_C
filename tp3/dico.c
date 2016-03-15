@@ -92,47 +92,60 @@ noeud* insertion(noeud * dico, char * mot, int taille, int index)
 
 	return dico;
 }
-/*
-void chargement(noeud * arbre, char * chemin)
+
+
+noeud * chargement(noeud * arbre, char * chemin)
 {
-	int tailleDico, i, j;
-	char[100] buffer;
+	int tailleDico, tailleMot, i, j;
+	char buffer[100];
 	FILE * fich = fopen(chemin, "r");
 	
 	if (fich == NULL)
 		printf("Erreur fichier\n");
 	else
 	{
-		fprintf(fich, "%d\n", &tailleDico);
+
+		fgets(buffer, 100, fich);
+		tailleDico = atoi(buffer);
+
 		for (i = 0; i < tailleDico; i++)
 		{
-			for (j = 0; cara != '\0'; j++)
-			{
-				fgets(buffer, 100, fich);
-			}
+
+			fscanf(fich, "%s%n", buffer, &tailleMot);
+			printf("%s %d\n", buffer, tailleMot);
+			arbre = insertion(arbre, buffer, tailleMot, 0);
 		}
 	}
-}*/
+
+	return arbre;
+}
 
 
 void afficheD(noeud* d, int tab)
 {
 	int i;
-	printf(" %c ->", d->lettre);
-	
-	if(d->fils){
-		afficheD(d->fils, tab+1);
+	if (d == NULL)
+	{
+		printf("Arbre vide\n");
 	}
 	else
-		printf(" Fin\n");
-
-	if (d->frere){
-		printf("\n");
-		for (i=0;i<tab;i++){
-			printf("    ");
+	{
+		printf(" %c ->", d->lettre);
+		
+		if(d->fils){
+			afficheD(d->fils, tab+1);
 		}
-		printf("->");
-		afficheD(d->frere, tab);
+		else
+			printf(" Fin\n");
+
+		if (d->frere){
+			printf("\n");
+			for (i=0;i<tab;i++){
+				printf("    ");
+			}
+			printf("->");
+			afficheD(d->frere, tab);
+		}
 	}
 
 }
@@ -141,7 +154,7 @@ int main(int argc, char *argv[])
 {
 	noeud * arbre = creeDico();
 
-	arbre = insertion(arbre, "arbre", 5, 0);
+/*	arbre = insertion(arbre, "arbre", 5, 0);
 	afficheD(arbre,0);
 	printf("\n deuxième affichage \n");
 	arbre = insertion(arbre, "arbuste", 7, 0);
@@ -161,6 +174,12 @@ int main(int argc, char *argv[])
 
 	printf("Est ce que le mot arbre appartient a notre arbre : %d (1 oui, 0 non)\n",recherche("arbre", arbre,5, 0));
 	printf("Est ce que le mot arbuisseau appartient a notre arbre : %d (1 oui, 0 non)\n",recherche("arbuisseau", arbre,10, 0));
+
+*/
+
+	arbre = chargement(arbre, "./dico.fr");
+	afficheD(arbre,0);
+
 
 
 	printf("\n");
