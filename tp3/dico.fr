@@ -14,3 +14,9 @@ abaisserais
 abaisserait
 abaisseront
 abaisseur
+<<<<<<< HEAD
+=======
+otat
+oterent
+otee
+>>>>>>> ad98162f8a8b582b6e0411f2537d2215e437aa7a
