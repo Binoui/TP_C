@@ -45,11 +45,9 @@ noeud* insertion(noeud * dico, char * mot, int taille, int index)
 			/* si la lettre à placer est plus grande, on va dans les frères*/
 			if (mot[index] > dico->lettre)
 			{
-				printf(" > : %c - %c\n",mot[index], dico->lettre );
 				ptr = dico;
 				if (dico->frere == NULL)
 				{
-					printf("Pas frere\n");
 					nouveau = malloc(sizeof(noeud));
 					nouveau->lettre = mot[index];
 					dico->frere = nouveau;
@@ -58,11 +56,8 @@ noeud* insertion(noeud * dico, char * mot, int taille, int index)
 				}
 				else
 				{
-					printf("frere = %c\n ", ptr->frere->lettre );
-
 					while (ptr->frere != NULL && mot[index] >= ptr->frere->lettre){
 						ptr = ptr->frere;
-						printf("freres : %c - %c\n",mot[index], ptr->lettre );
 					}
 					if (ptr->lettre != mot[index]){
 						nouveau = malloc(sizeof(noeud));
@@ -77,12 +72,9 @@ noeud* insertion(noeud * dico, char * mot, int taille, int index)
 			}
 			else 
 			{
-				printf(" <= : %c - %c\n",mot[index], dico->lettre );
-
 				/* lettre plus petite, on décale les fils */
 				if (mot[index] < dico->lettre)
 				{
-					printf("< : %c - %c\n",mot[index], dico->lettre );
 					nouveau = malloc(sizeof(noeud));
 					nouveau->lettre = dico->lettre;
 					nouveau->fils = dico->fils;
@@ -188,36 +180,8 @@ int main(int argc, char *argv[])
 	printf("Est ce que le mot arbuisseau appartient a notre arbre : %d (1 oui, 0 non)\n",recherche("arbuisseau", arbre,10, 0));
 
 */
-	//arbre = chargement(arbre, "./dico.ang");
+	arbre = chargement(arbre, "./dico.fr");
 	
-	arbre = insertion(arbre, "zinc", 4, 0);
-	arbre = insertion(arbre, "zion", 4, 0);
-	arbre = insertion(arbre, "zionism", 8, 0);
-/*	arbre = insertion(arbre, "zionist", 8, 0);
-	arbre = insertion(arbre, "zionists", 9, 0);
-	arbre = insertion(arbre, "zions", 5, 0);
-	arbre = insertion(arbre, "zodiac", 6, 0);
-	arbre = insertion(arbre, "zoe", 3, 0);
-	arbre = insertion(arbre, "zomba", 5, 0);
-	arbre = insertion(arbre, "zonal", 5, 0);
-	arbre = insertion(arbre, "zonally", 7, 0);
-	arbre = insertion(arbre, "zone", 4, 0);
-	arbre = insertion(arbre, "zoned", 5, 0);
-	arbre = insertion(arbre, "zones", 4, 0);
-	arbre = insertion(arbre, "zoning", 6, 0);
-	arbre = insertion(arbre, "zoo", 3, 0);
-	arbre = insertion(arbre, "zoological", 10, 0);
-	arbre = insertion(arbre, "zoologically", 12, 0);
-	arbre = insertion(arbre, "zoom", 4, 0);
-	arbre = insertion(arbre, "zooms", 5, 0);
-	arbre = insertion(arbre, "zoos", 4, 0);
-	arbre = insertion(arbre, "zorn", 4, 0);
-	arbre = insertion(arbre, "zoroaster", 9, 0);
-	arbre = insertion(arbre, "zoroastrian", 11, 0);
-	arbre = insertion(arbre, "zulu", 4, 0);
-	arbre = insertion(arbre, "zulus", 5, 0);*/
-
-
 	afficheD(arbre,0);
 	printf("\n");
 	return 0;
