@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "dico.h"
+#include <string.h>
 
 
 
@@ -54,6 +55,7 @@ noeud* insertion(noeud * dico, char * mot, int taille, int index)
 				}
 				else
 				{
+					printf("%c %c\n", mot[index], ptr->frere->lettre);
 					while (ptr->frere != NULL && mot[index] > ptr->frere->lettre)
 						ptr = ptr->frere;
 
@@ -61,6 +63,7 @@ noeud* insertion(noeud * dico, char * mot, int taille, int index)
 					nouveau->lettre = mot[index];
 					nouveau->frere = ptr->frere;
 					ptr->frere = nouveau;
+					
 				}
 
 				ptr->fils = insertion(ptr->fils, mot, taille, index+1);
@@ -78,6 +81,7 @@ noeud* insertion(noeud * dico, char * mot, int taille, int index)
 					dico->frere = nouveau;
 					dico->fils = NULL;
 				}
+
 				dico->fils = insertion(dico->fils, mot, taille, index+1);
 			}
 		}
@@ -108,7 +112,7 @@ noeud * chargement(noeud * arbre, char * chemin)
 
 		for (i = 0; i < tailleDico; i++)
 		{
-
+			memset(buffer, 0, 100);
 			fscanf(fich, "%s%n", buffer, &tailleMot);
 			printf("%s %d\n", buffer, tailleMot);
 			arbre = insertion(arbre, buffer, tailleMot, 0);
@@ -151,24 +155,18 @@ int main(int argc, char *argv[])
 {
 	noeud * arbre = creeDico();
 
-/*	arbre = insertion(arbre, "arbre", 5, 0);
+	arbre = insertion(arbre, "zion", 4, 0);
 	afficheD(arbre,0);
 	printf("\n deuxième affichage \n");
-	arbre = insertion(arbre, "arbuste", 7, 0);
+	arbre = insertion(arbre, "zinc", 4, 0);
 	afficheD(arbre,0);
 	printf("\n troisième affichage \n");
-	arbre = insertion(arbre, "arrivee", 7, 0);
+	arbre = insertion(arbre, "zionism", 7, 0);
 	afficheD(arbre,0);
-	printf("\n quatrième affichage \n");
-	arbre = insertion(arbre, "abreuvoir", 9, 0);
-	afficheD(arbre,0);
-	printf("\n cinquième affichage \n");
-	arbre = insertion(arbre, "ablation", 8, 0);
-	afficheD(arbre,0);
-*/
 
+/*
 	arbre = chargement(arbre, "./dico.fr");
-	afficheD(arbre,0);
+	afficheD(arbre,0);*/
 
 
 	printf("\n");

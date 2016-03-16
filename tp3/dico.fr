@@ -1,10 +1,9 @@
-20
+15
 a
 abaissante
 abaissasse
 abaissassent
 abaisse
-abaisse-langue
 abaissement
 abaissent
 abaisser
@@ -15,6 +14,3 @@ abaisserais
 abaisserait
 abaisseront
 abaisseur
-ôtât
-ôtèrent
-ôtée
