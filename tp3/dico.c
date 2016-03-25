@@ -194,7 +194,7 @@ int main(int argc, char *argv[])
 	arbre = insertion(arbre, "zinc", 4, 0);
 	arbre = insertion(arbre, "zion", 4, 0);
 	arbre = insertion(arbre, "zionism", 8, 0);
-/*	arbre = insertion(arbre, "zionist", 8, 0);
+	arbre = insertion(arbre, "zionist", 8, 0);
 	arbre = insertion(arbre, "zionists", 9, 0);
 	arbre = insertion(arbre, "zions", 5, 0);
 	arbre = insertion(arbre, "zodiac", 6, 0);
@@ -216,7 +216,7 @@ int main(int argc, char *argv[])
 	arbre = insertion(arbre, "zoroaster", 9, 0);
 	arbre = insertion(arbre, "zoroastrian", 11, 0);
 	arbre = insertion(arbre, "zulu", 4, 0);
-	arbre = insertion(arbre, "zulus", 5, 0);*/
+	arbre = insertion(arbre, "zulus", 5, 0);
 
 
 	afficheD(arbre,0);
