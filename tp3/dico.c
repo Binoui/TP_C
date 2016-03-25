@@ -3,12 +3,11 @@
 #include "dico.h"
 #include <string.h>
 
-
-
 noeud* creeDico(){
 	return NULL;
 }
 
+/* Recherche si la chaine clef de taille donnée se trouve dans l'arbre d*/
 int recherche(char* clef, noeud* d,int taille, int index){
 	int trouve = 0;
 	if (d ==NULL)
@@ -46,19 +45,21 @@ noeud* insertion(noeud * dico, char * mot, int taille, int index)
 			if (mot[index] > dico->lettre)
 			{
 				ptr = dico;
+				/* Si le frère est nul, on place le noeud */
 				if (dico->frere == NULL)
 				{
 					nouveau = malloc(sizeof(noeud));
 					nouveau->lettre = mot[index];
 					dico->frere = nouveau;
 					ptr = nouveau;
-
 				}
 				else
 				{
+					/* Sinon, on cherche la place correcte du frère */
 					while (ptr->frere != NULL && mot[index] >= ptr->frere->lettre){
 						ptr = ptr->frere;
 					}
+					/* Création du frère */
 					if (ptr->lettre != mot[index]){
 						nouveau = malloc(sizeof(noeud));
 						nouveau->lettre = mot[index];
@@ -67,7 +68,7 @@ noeud* insertion(noeud * dico, char * mot, int taille, int index)
 						ptr = nouveau;
 					}
 				}
-
+				/* On continue de descendre à partir du frère créé */
 				ptr->fils = insertion(ptr->fils, mot, taille, index+1);
 			}
 			else 
@@ -90,6 +91,7 @@ noeud* insertion(noeud * dico, char * mot, int taille, int index)
 	}
 	else
 	{
+		/* Fin du mot, on créé le noeud final */
 		dico = malloc(sizeof(noeud));
 		dico->lettre = '\0';
 		dico->fils = NULL;
@@ -99,7 +101,7 @@ noeud* insertion(noeud * dico, char * mot, int taille, int index)
 	return dico;
 }
 
-
+/* Charge un dictionnaire */
 noeud * chargement(noeud * arbre, char * chemin)
 {
 	int tailleDico, tailleMot, i, j;
@@ -110,15 +112,15 @@ noeud * chargement(noeud * arbre, char * chemin)
 		printf("Erreur fichier\n");
 	else
 	{
+		/* On récupère le nombre de mots du dictionnaire */
 		fgets(buffer, 100, fich);
 		tailleDico = atoi(buffer);
 		printf("%d\n", tailleDico);
-
+		/* On ajoute mot par mot à l'arbre */
 		for (i = 0; i < tailleDico; i++)
 		{
 			memset(buffer, 0, 100);
 			fscanf(fich, "%s%n", buffer, &tailleMot);
-			//printf("%s %d\n", buffer, tailleMot);
 			arbre = insertion(arbre, buffer, tailleMot, 0);
 		}
 	}
@@ -126,7 +128,7 @@ noeud * chargement(noeud * arbre, char * chemin)
 	return arbre;
 }
 
-
+/* Affiche l'arbre */
 void afficheD(noeud* d, int tab)
 {
 	int i;
@@ -159,28 +161,8 @@ void afficheD(noeud* d, int tab)
 int main(int argc, char *argv[])
 {
 	noeud * arbre = creeDico();
-/*
-	arbre = insertion(arbre, "zion", 4, 0);
-	afficheD(arbre,0);
-	printf("\n deuxième affichage \n");
-	arbre = insertion(arbre, "zinc", 4, 0);
-	afficheD(arbre,0);
-	printf("\n troisième affichage \n");
-	arbre = insertion(arbre, "zionism", 7, 0);
-	afficheD(arbre,0);
 
-	printf("\n cinquième affichage \n");
-	arbre = insertion(arbre, "ablation", 8, 0);
-	afficheD(arbre,0);
-	printf("\n sixième affichage \n");
-	arbre = insertion(arbre, "ablation", 8, 0);
-	afficheD(arbre,0);
-
-	printf("Est ce que le mot arbre appartient a notre arbre : %d (1 oui, 0 non)\n",recherche("arbre", arbre,5, 0));
-	printf("Est ce que le mot arbuisseau appartient a notre arbre : %d (1 oui, 0 non)\n",recherche("arbuisseau", arbre,10, 0));
-
-*/
-	arbre = chargement(arbre, "./dico.fr");
+	arbre = chargement(arbre, "./dico.ang");
 	
 	arbre = insertion(arbre, "zinc", 4, 0);
 	arbre = insertion(arbre, "zion", 4, 0);
