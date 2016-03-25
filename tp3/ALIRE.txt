@@ -1,0 +1,45 @@
+TP2 Auffret / Houx TP1
+
+Fonctions de recherche, insertion et d'affichage d'un dictionnaire se trouvent dans dico.c. 
+
+La difficulté principale était dans le décalage de l'arbre, lorsqu'il faut créer un nouveau frère/fils et décaler tous les noeuds existants. Il faut le faire avant d'insérer ce noeud, puisqu'un frère/fils n'a pas accès à son prédécesseur.
+
+Compilation : 
+gcc dico.c -o dico
+
+Execution : 
+./dico
+
+
+Trace d'exécution à partir d'un dictionnaire réduit (dicoReduit.ang)
+15
+e -> c -> c -> l -> e -> s -> i -> a -> s -> t -> i -> c -> a -> l ->  -> Fin
+
+        -> h -> e -> l -> o -> n ->  ->  -> Fin
+
+            -> o ->  ->  -> Fin
+
+                -> e -> d ->  ->  -> Fin
+
+                    -> s ->  ->  -> Fin
+
+                -> i -> n -> g ->  ->  -> Fin
+
+        -> l -> e -> c -> t -> i -> c ->  ->  -> Fin
+
+p -> l -> a -> t -> o -> n -> i -> s -> t ->  ->  -> Fin
+
+                    -> o -> n ->  ->  -> Fin
+
+                -> t -> e ->  ->  -> Fin
+
+                        -> r ->  ->  -> Fin
+
+            -> y -> a -> b -> l -> e ->  ->  -> Fin
+
+                -> b -> a -> c -> k ->  ->  -> Fin
+
+                    -> o -> y ->  ->  -> Fin
+
+                -> e -> d ->  ->  -> Fin
+
