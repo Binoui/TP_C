@@ -68,6 +68,7 @@ int pLargeur(char* fichier){
 			coule[courant]=2;
 			nscc++;
 		}
+		printf("La %deme composante connexe contien %d sommet(s). Nous avons actullement %d/%d sommets\n",ncc, nscc, nbSommet,nbS);
 		if(nscc != nbS){
 			booleen = 0;
 			if(nbSommet!=nbS){
@@ -78,7 +79,6 @@ int pLargeur(char* fichier){
 				nbSommet++;
 			}
 		}
-		printf("La %deme composante connexe contien %d sommet(s). Nous avons actullement %d/%d sommets\n",ncc, nscc, nbSommet,nbS);
 	}
 
 
