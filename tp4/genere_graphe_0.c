@@ -13,16 +13,7 @@
 #define MAXVALUATION 	20.0
 #define MAXSUCC		10
 
-typedef struct {
- int nbsom;
- int nbarc;
-	   float **matrice; /* matrice d'adjacence */
-} graphe;
 
-typedef struct {	
-  int *pere;
-  int nbelements;
-  int nbclasses; } t_ens;	 
 
 /*****************************************************************************/
   void init_graphe(int nbs, int nba, graphe *g)
@@ -372,7 +363,7 @@ void reunir(int r1, int r2, t_ens *ens)
    
    fclose(fich);
  }
-/*****************************************************************************/  
+/***************************************************************************** 
 
  int main(int argc, char *argv[])
  {int nbs, nba;
@@ -420,4 +411,4 @@ void reunir(int r1, int r2, t_ens *ens)
       nom_fichier,nbs,nba);
     
   }
-/****************************************************************************/ 	
+****************************************************************************/ 	
