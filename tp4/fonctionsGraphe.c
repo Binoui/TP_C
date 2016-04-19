@@ -18,32 +18,36 @@ struct file
 	Cellule * queue;
 };
 
-
-int pLargeur(char* fichier){
+graphe fich2Graf (char* fichier){
 	graphe g;
-	int nbA, nbS, i,ori, ext,courant,nbSommet = 0, nscc, booleen =1, ncc=0,j=0;
-	file* liste = creer_file();
-	int* coule;
+	int nbA, nbS, i,ori, ext;
 
 
 	FILE* f = fopen(fichier,"r");
 	if(f==NULL){
 		printf("Erreur : mauvais fichier.");
-		return -1;
+		init_graphe(0,0,&g);
+	}else{
+		fscanf(f,"%d %d",&nbS,&nbA);
+
+		init_graphe(nbS,nbA,&g);
+
+		for(i=0; i <= nbA; i++){
+			fscanf(f,"%d %d", &ori, &ext);
+
+			g.matrice[ori][ext] = g.matrice[ext][ori] = 1;
+		}
+		fclose(f);
 	}
+	return g;
+}
+int pLargeur(graphe g){
+	
+	int nbS=g.nbsom, i,ori=0, courant,nbSommet = 0, nscc, booleen =1, ncc=0,j=0;
+	file* liste = creer_file();
+	int* coule= (int*)calloc(nbS,sizeof(int*));
 
 
-	fscanf(f,"%d %d",&nbS,&nbA);
-
-	init_graphe(nbS,nbA,&g);
-	coule = (int*)calloc(nbS,sizeof(int*));
-
-
-	for(i=0; i <= nbA; i++){
-		fscanf(f,"%d %d", &ori, &ext);
-
-		g.matrice[ori][ext] = g.matrice[ext][ori] = 1;
-	}
 	ori =0;
 
 	enfiler(liste,ori);
@@ -83,10 +87,63 @@ int pLargeur(char* fichier){
 
 
 	free(coule);
-	fclose(f);
+	free(liste);
 	return booleen;
 }
 
+
+int bicolore(graphe g){
+	char* coule = (char*)calloc(g.nbsom,sizeof(char*));
+	file* liste = creer_file();
+	int ori, nbSommet,courant,nbS=g.nbsom,i,j;
+	ori =0;
+
+	for(i=0;i<nbS;i++){
+		coule[i]='N';
+	}
+
+	enfiler(liste,ori);
+	nbSommet++;
+	coule[ori] ='B';
+
+	while(nbSommet<nbS){
+		while(!(file_estVide(liste))){
+			courant = defiler(liste);
+			printf("Sommet %d, couleur : %c\n", courant, coule[courant]);
+			for(i=0;i<nbS;i++){
+				if(g.matrice[courant][i]==1){
+					if(coule[i]!=coule[courant]){
+						if(coule[i]=='N'){
+							if(coule[courant]=='B'){
+								coule[i]='J';
+							}else{
+								coule[i]='B';
+							}
+							enfiler(liste,i);
+							nbSommet++;
+						}
+					}else{
+						return 0;
+					}
+				}
+			}
+			coule[courant]=2;
+		}
+		if(nbSommet!=nbS){
+			while(coule[j]!=0){
+				j++;
+			}
+			enfiler(liste,j);
+			nbSommet++;
+			coule[j]='B';
+		}
+		
+	}
+
+	free(coule);
+	free(liste);
+	return 1;
+}
 
 
 file * creer_file()
@@ -159,8 +216,10 @@ void init_graphe(int nbs, int nba, graphe *g)
 
 int main(int argc, char *argv[])
 {
-	pLargeur("test.txt");
+	graphe g = fich2Graf("test.txt");
+	pLargeur(g);
 
+	printf("bicolore ? %d\n",bicolore(g));
 
 	return 0;
 }
