@@ -17,31 +17,37 @@ struct file
 	Cellule * queue;
 };
 
-int pLargeur(char* fichier){
+graphe fich2Graf (char* fichier){
 	graphe g;
-	int nbA, nbS, i,ori, ext,courant,nbSommet = 0, nscc, booleen =1, ncc=0,j=0;
-	file* liste = creer_file();
-	int* coule;
+	int nbA, nbS, i,ori, ext;
 
 
 	FILE* f = fopen(fichier,"r");
 	if(f==NULL){
 		printf("Erreur : mauvais fichier.");
-		return -1;
+		init_graphe(0,0,&g);
+	}else{
+		fscanf(f,"%d %d",&nbS,&nbA);
+
+		init_graphe(nbS,nbA,&g);
+
+		for(i=0; i <= nbA; i++){
+			fscanf(f,"%d %d", &ori, &ext);
+
+			g.matrice[ori][ext] = g.matrice[ext][ori] = 1;
+		}
+		fclose(f);
 	}
+	return g;
+}
+
+int pLargeur(graphe g){
+
+	int nbS=g.nbsom, i,ori=0, courant,nbSommet = 0, nscc, booleen =1, ncc=0,j=0;
+	file* liste = creer_file();
+	int* coule= (int*)calloc(nbS,sizeof(int*));
 
 
-	fscanf(f,"%d %d",&nbS,&nbA);
-
-	init_graphe(nbS,nbA,&g);
-	coule = (int*)calloc(nbS,sizeof(int*));
-
-
-	for(i=0; i <= nbA; i++){
-		fscanf(f,"%d %d", &ori, &ext);
-
-		g.matrice[ori][ext] = g.matrice[ext][ori] = 1;
-	}
 	ori =0;
 
 	enfiler(liste,ori);
@@ -81,10 +87,63 @@ int pLargeur(char* fichier){
 
 
 	free(coule);
-	fclose(f);
+	free(liste);
 	return booleen;
 }
 
+
+int bicolore(graphe g){
+	char* coule = (char*)calloc(g.nbsom,sizeof(char*));
+	file* liste = creer_file();
+	int ori, nbSommet,courant,nbS=g.nbsom,i,j;
+	ori =0;
+
+	for(i=0;i<nbS;i++){
+		coule[i]='N';
+	}
+
+	enfiler(liste,ori);
+	nbSommet++;
+	coule[ori] ='B';
+
+	while(nbSommet<nbS){
+		while(!(file_estVide(liste))){
+			courant = defiler(liste);
+			printf("Sommet %d, couleur : %c\n", courant, coule[courant]);
+			for(i=0;i<nbS;i++){
+				if(g.matrice[courant][i]==1){
+					if(coule[i]!=coule[courant]){
+						if(coule[i]=='N'){
+							if(coule[courant]=='B'){
+								coule[i]='J';
+							}else{
+								coule[i]='B';
+							}
+							enfiler(liste,i);
+							nbSommet++;
+						}
+					}else{
+						return 0;
+					}
+				}
+			}
+			coule[courant]=2;
+		}
+		if(nbSommet!=nbS){
+			while(coule[j]!=0){
+				j++;
+			}
+			enfiler(liste,j);
+			nbSommet++;
+			coule[j]='B';
+		}
+
+	}
+
+	free(coule);
+	free(liste);
+	return 1;
+}
 
 void init_graphe(int nbs, int nba, graphe *g)
 { 
@@ -128,20 +187,42 @@ graphe cree_graphe_non_oriente_non_value(char *nom_fich)
 	return g;
 }	
 
-void visite_profondeur(int * coul, graphe g, int numSom)
+void visite_profondeur_prefixe(int * coul, graphe g, int numSom)
 {
 	coul[numSom] = 1;
 
 	int i;
+	printf("  %d ", numSom);
+	
 	for (i = 0; i < g.nbsom; i++)
 	{       
 		    /* Successeur */
-		if (g.matrice[numSom][i] && ! coul[numSom])
+		if (g.matrice[numSom][i] == 1  && coul[i] == 0)
 		{
-			printf("\r%d ", i);
-			visite_profondeur(coul, g, i); 
+			visite_profondeur_prefixe(coul, g, i); 
 		}
 	}
+
+	coul[numSom] = 2;
+}
+
+void visite_profondeur_affi_double(int * coul, graphe g, int numSom, int * tab, int * index)
+{
+	coul[numSom] = 1;
+
+	int i;
+	tab[(*index)++] = numSom;
+	
+	for (i = 0; i < g.nbsom; i++)
+	{       
+		    /* Successeur */
+		if (g.matrice[numSom][i] == 1  && coul[i] == 0)
+		{
+			visite_profondeur_affi_double(coul, g, i, tab, index); 
+		}
+	}
+
+	printf(" %d ", numSom);
 
 	coul[numSom] = 2;
 }
@@ -153,19 +234,32 @@ void parcours_profondeur(graphe g)
 	   1 pour gris (en cours de traitement) 
 	   2 pour noir (traité) */
 	int * couleur = malloc(sizeof(int) * g.nbsom);
-	
+	int * tab = malloc(sizeof(int) * g.nbsom);
+	int a = 0;
+	int * index = &a;
+
 	for (i = 0; i < g.nbsom; i++)
 	{
 		couleur[i] = 0;
 	}
 
+	printf("Affichage Prefixe\n");
 	for (i = 0; i < g.nbsom; i++)
 	{
 		if (! couleur[i])
 		{
 			printf("\n%d -> \n", i);
-			visite_profondeur(couleur, g, i);
+			
+			/*visite_profondeur_prefixe(couleur, g, i);*/
+
+			visite_profondeur_affi_double(couleur, g, i, tab, index);
 		}	
+	}
+
+	printf("\nAffichage Suffixe\n");
+	for (i = 0; i < a; i++)
+	{
+		printf(" %d \n", tab[i]);
 	}
 
 	printf("\n");
@@ -229,11 +323,13 @@ int defiler(file * f)
 
 int main(void)
 {
-	graphe g = cree_graphe_non_oriente_non_value("graphe.data");
+/*		graphe g = fich2Graf("graphe.data");*/
+		graphe g = cree_graphe_non_oriente_non_value("test.txt");
+/*		pLargeur(g);
+		printf("bicolore ? %d\n",bicolore(g));
+*/
 
-	parcours_profondeur(g);
+		parcours_profondeur(g);
 
-	pLargeur("test.txt");
-
-	return 0;
+		return 0;
 }
