@@ -1,28 +1,21 @@
-<<<<<<< HEAD
-#include <stdlib.h>
-#include <stdio.h>
-=======
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 #include "graphes.h"
 #include "../tp1/classique/fileClassique.h"
->>>>>>> be8ae8673a37350335bdb02270c7e4cf388d053b
 
-typedef struct
+struct Cellule
 {
-	int nbsom;
-	int nbarc;
-	int **matrice; /* matrice d'adjacence */
-} graphe;
+	int valeur;
+	Cellule * suivant;
+};
 
-typedef struct 
-{	
-	int *pere;
-	int nbelements;
-	int nbclasses; 
-} t_ens;	
+struct file
+{
+	Cellule * tete;
+	Cellule * queue;
+};
 
 int pLargeur(char* fichier){
 	graphe g;
@@ -178,7 +171,6 @@ void parcours_profondeur(graphe g)
 	printf("\n");
 }
 
-
 file * creer_file()
 {
 	file * f = malloc(sizeof(file));
@@ -240,18 +232,6 @@ int main(void)
 	graphe g = cree_graphe_non_oriente_non_value("graphe.data");
 
 	parcours_profondeur(g);
-
-/*void init_graphe(int nbs, int nba, graphe *g)
-  { int i,j;
-
-    g->nbsom = nbs; g->nbarc = nba;
-    g->matrice = (float **)calloc(g->nbsom,sizeof(float*));
-    for (i=0;i<g->nbsom;i++)
-      { g->matrice[i] = (float *)calloc(g->nbsom,sizeof(float));
-        /* for (j=0; j<g->nbsom; j++) g->matrice[i][j] = 0.; 
-	   inutile avec calloc */
-      
-    
 
 	pLargeur("test.txt");
 
