@@ -54,7 +54,7 @@ int pLargeur(graphe g){
 	nbSommet++;
 	coule[ori] =1;
 
-	while(nbSommet!=nbS){
+	while(nbSommet<nbS){
 		ncc++;
 		nscc=0;
 		while(!(file_estVide(liste))){
@@ -81,6 +81,9 @@ int pLargeur(graphe g){
 				}
 				enfiler(liste,j);
 				nbSommet++;
+			}
+			if(nbS == nbSommet){
+				printf("La %deme composante connexe contient %d sommet(s). Nous avons actuellement %d/%d sommets\n",ncc+1, 1, nbSommet,nbS);
 			}
 		}
 	}
