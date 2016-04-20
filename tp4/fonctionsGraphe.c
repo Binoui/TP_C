@@ -41,6 +41,7 @@ graphe fich2Graf (char* fichier){
 	}
 	return g;
 }
+
 int pLargeur(graphe g){
 	
 	int nbS=g.nbsom, i,ori=0, courant,nbSommet = 0, nscc, booleen =1, ncc=0,j=0;
@@ -98,7 +99,7 @@ int pLargeur(graphe g){
 int bicolore(graphe g){
 	char* coule = (char*)calloc(g.nbsom,sizeof(char*));
 	file* liste = creer_file();
-	int ori, nbSommet,courant,nbS=g.nbsom,i,j;
+	int ori, nbSommet=0,courant,nbS=g.nbsom,i,j;
 	ori =0;
 
 	for(i=0;i<nbS;i++){
@@ -206,20 +207,20 @@ int defiler(file * f)
 }
 
 void init_graphe(int nbs, int nba, graphe *g)
-  { int i,j;
+  { int i;
 
     g->nbsom = nbs; g->nbarc = nba;
     g->matrice = (float **)calloc(g->nbsom,sizeof(float*));
     for (i=0;i<g->nbsom;i++)
-      { g->matrice[i] = (float *)calloc(g->nbsom,sizeof(float));
-        /* for (j=0; j<g->nbsom; j++) g->matrice[i][j] = 0.; 
-	   inutile avec calloc */
+      { 
+      	g->matrice[i] = (float *)calloc(g->nbsom,sizeof(float));
       }
     }
 
-int main(int argc, char *argv[])
+
+int main()
 {
-	graphe g = fich2Graf("test.txt");
+	graphe g = fich2Graf("graphe_alea.txt");
 	pLargeur(g);
 
 	printf("bicolore ? %d\n",bicolore(g));

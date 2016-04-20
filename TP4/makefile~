@@ -1,0 +1,16 @@
+CC=gcc
+CFLAGS= -W -Wall -ansi -g
+DOC_FILE = ../tp1/classique/
+graphe: fonctionsGraphe.o pileClassique.o DOC_FILE/fileclassique.o
+	$(CC) $^ -o $@
+
+DOC_FILE/fileclassique.o : DOC_FILE/fileclassique.c DOC_FILE/fileclassique.h
+	$(CC) $(CFLAGS) -c $< -o $@
+
+
+%.o: %.c %.h
+	$(CC) $(CFLAGS) -c $< -o $@
+
+clean:
+	rm -f *.o graphe
+
