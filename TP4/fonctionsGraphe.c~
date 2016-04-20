@@ -335,7 +335,7 @@ int defiler(file * f)
 	return ret;
 }
 
-
+<<<<<<< HEAD
 void init_graphe(int nbs, int nba, graphe *g)
   { int i;
 
