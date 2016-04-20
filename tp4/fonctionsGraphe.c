@@ -43,7 +43,7 @@ graphe fich2Graf (char* fichier){
 
 int pLargeur(graphe g){
 
-	int nbS=g.nbsom, i,ori=0, courant,nbSommet = 0, nscc, booleen =1, ncc=0,j=0;
+	int nbS=g.nbsom, i,ori=0, nbSommet, courant, nscc, booleen =1, ncc=0,j=0;
 	file* liste = creer_file();
 	int* coule= (int*)calloc(nbS,sizeof(int*));
 
@@ -51,6 +51,7 @@ int pLargeur(graphe g){
 	ori =0;
 
 	enfiler(liste,ori);
+	nbSommet = 0;
 	nbSommet++;
 	coule[ori] =1;
 
@@ -98,7 +99,7 @@ int pLargeur(graphe g){
 int bicolore(graphe g){
 	char* coule = (char*)calloc(g.nbsom,sizeof(char*));
 	file* liste = creer_file();
-	int ori, nbSommet,courant,nbS=g.nbsom,i,j;
+	int ori, nbSommet = 0,courant,nbS=g.nbsom,i,j;
 	ori =0;
 
 	for(i=0;i<nbS;i++){
@@ -159,7 +160,7 @@ void init_graphe(int nbs, int nba, graphe *g)
 	for (i=0;i<g->nbsom;i++)
 	{ 
 		g->matrice[i] = (int *)calloc(g->nbsom,sizeof(int));
-    	/* for (j=0; j<g->nbsom; j++) g->matrice[i][j] = 0.; 
+		/* for (j=0; j<g->nbsom; j++) g->matrice[i][j] = 0.; 
 		inutile avec calloc */
 	}
 }
@@ -167,28 +168,33 @@ void init_graphe(int nbs, int nba, graphe *g)
 /* format du fichier : 
 nbsommets nbaretes
 aretes sous forme de triplets origine extremité                           */
-graphe cree_graphe_non_oriente_non_value(char *nom_fich)
-{
+void cree_graphe_non_oriente_non_value(char *nom_fich, int nbs, int nba)
+{ 
 	FILE *fich; 
 	graphe g;
-	int nbs, nba, som1, som2;
+	int ori, ext;
 	int iare;
 
-	fich = fopen(nom_fich, "r");
+	fich = fopen(nom_fich,"w");
 
-	fscanf(fich,"%d %d", &nbs, &nba);
+	fprintf(fich,"%d %d\n",nbs,nba);
 
 	init_graphe(nbs,nba,&g);    
 
-	for (iare = 0; iare < nba ; iare++)
+	for (iare = 1; iare <= nba ; iare++)
 	{
-		fscanf(fich, "%d %d", &som1, &som2);
-		g.matrice[som1][som2] = g.matrice[som2][som1] = 1;
+		do 
+		{
+			ori = random()%nbs;
+			ext = random()%nbs;
+		} while ((ori == ext)||(g.matrice[ori][ext]));
+
+		g.matrice[ori][ext] = g.matrice[ext][ori] = 1;
+		fprintf(fich,"%d %d\n",ori,ext);
 	} 
 
 	fclose(fich);
-	return g;
-}	
+}   
 
 void visite_profondeur_prefixe(int * coul, graphe g, int numSom)
 {
@@ -196,10 +202,10 @@ void visite_profondeur_prefixe(int * coul, graphe g, int numSom)
 
 	int i;
 	printf("  %d ", numSom);
-	
+
 	for (i = 0; i < g.nbsom; i++)
 	{       
-		    /* Successeur */
+			/* Successeur */
 		if (g.matrice[numSom][i] == 1  && coul[i] == 0)
 		{
 			visite_profondeur_prefixe(coul, g, i); 
@@ -209,19 +215,20 @@ void visite_profondeur_prefixe(int * coul, graphe g, int numSom)
 	coul[numSom] = 2;
 }
 
-void visite_profondeur_affi_double(int * coul, graphe g, int numSom, int * tab, int * index)
+void visite_profondeur_affi_double(int * coul, graphe g, int numSom, int * tab, int * index, int * nbSom)
 {
 	coul[numSom] = 1;
 
 	int i;
 	tab[(*index)++] = numSom;
-	
+
 	for (i = 0; i < g.nbsom; i++)
 	{       
-		    /* Successeur */
+			/* Successeur */
 		if (g.matrice[numSom][i] == 1  && coul[i] == 0)
 		{
-			visite_profondeur_affi_double(coul, g, i, tab, index); 
+			(*nbSom)++;
+			visite_profondeur_affi_double(coul, g, i, tab, index, nbSom); 
 		}
 	}
 
@@ -234,12 +241,14 @@ void parcours_profondeur(graphe g)
 {
 	int i;
 	/* 0 pour blanc (pas encore traité)
-	   1 pour gris (en cours de traitement) 
-	   2 pour noir (traité) */
+	1 pour gris (en cours de traitement) 
+	2 pour noir (traité) */
 	int * couleur = malloc(sizeof(int) * g.nbsom);
 	int * tab = malloc(sizeof(int) * g.nbsom);
 	int a = 0;
 	int * index = &a;
+	int nbCompCon = 0;
+	int nbSom = 1;
 
 	for (i = 0; i < g.nbsom; i++)
 	{
@@ -251,18 +260,18 @@ void parcours_profondeur(graphe g)
 	{
 		if (! couleur[i])
 		{
-			printf("\n%d -> \n", i);
-			
 			/*visite_profondeur_prefixe(couleur, g, i);*/
-
-			visite_profondeur_affi_double(couleur, g, i, tab, index);
-		}	
+			nbCompCon++;
+			visite_profondeur_affi_double(couleur, g, i, tab, index, &nbSom);
+			printf("\nComposante connexe numero %d contient %d sommets\n", nbCompCon, nbSom);
+			nbSom = 1;
+		}   
 	}
 
 	printf("\nAffichage Suffixe\n");
 	for (i = 0; i < a; i++)
 	{
-		printf(" %d \n", tab[i]);
+		printf(" %d ", tab[i]);
 	}
 
 	printf("\n");
@@ -273,6 +282,7 @@ file * creer_file()
 	file * f = malloc(sizeof(file));
 	f->tete  = NULL;
 	f->queue = NULL;
+	return f;
 }
 
 int file_estVide(file * f)
@@ -326,13 +336,16 @@ int defiler(file * f)
 
 int main(void)
 {
-/*		graphe g = fich2Graf("graphe.data");*/
-		graphe g = cree_graphe_non_oriente_non_value("test.txt");
-/*		pLargeur(g);
-		printf("bicolore ? %d\n",bicolore(g));
+	cree_graphe_non_oriente_non_value("testGraphe.data", 250, 250);
+	graphe g = fich2Graf("testGraphe.data"); 
+
+
+	printf("\nPARCOURS PROFONDEUR\n");
+	parcours_profondeur(g);
+	
+	printf("\nPARCOURS LARGEUR\n");
+	pLargeur(g);
+/*	printf("bicolore ? %d\n",bicolore(g));
 */
-
-		parcours_profondeur(g);
-
-		return 0;
+	return 0;
 }

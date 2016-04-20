@@ -1,0 +1,438 @@
+TP2 Auffret / Houx TP1
+
+Fonctions sur les graphes se trouvent dans fonctionsGraphe.c
+
+Une des difficultés était de parcourir le graphe tout en préparant à la fois l'affichage préfixe et celui suffixe. Nous avons utilisé pour cela un tableau qui stocke les sommets.
+
+Compilation : 
+make fonctionsGraphe
+
+Execution : 
+./fonctionsGraphe
+
+Trace d'execution :
+
+Sur un petit graphe connexe (7x7):
+
+PARCOURS PROFONDEUR
+Affichage Prefixe
+ 6  4  1  5  2  3  0 
+Composante connexe numero 1 contient 7 sommets
+
+Affichage Suffixe
+ 0  3  1  4  6  2  5 
+
+PARCOURS LARGEUR
+Sommet 0
+Sommet 3
+Sommet 6
+Sommet 1
+Sommet 2
+Sommet 4
+Sommet 5
+La 1eme composante connexe contient 7 sommet(s). Nous avons actuellement 7/7 sommets
+
+
+
+Sur un petit graphe non connexe (9x6) :
+
+PARCOURS PROFONDEUR
+Affichage Prefixe
+ 3  6  1  4  5  7  0 
+Composante connexe numero 1 contient 7 sommets
+ 2 
+Composante connexe numero 2 contient 1 sommets
+ 8 
+Composante connexe numero 3 contient 1 sommets
+
+Affichage Suffixe
+ 0  7  1  3  6  5  4  2  8 
+
+PARCOURS LARGEUR
+Sommet 0
+Sommet 7
+Sommet 1
+Sommet 5
+Sommet 3
+Sommet 6
+Sommet 4
+La 1eme composante connexe contient 7 sommet(s). Nous avons actuellement 7/9 sommets
+Sommet 2
+La 2eme composante connexe contient 1 sommet(s). Nous avons actuellement 8/9 sommets
+Sommet 8
+La 3eme composante connexe contient 1 sommet(s). Nous avons actuellement 9/9 sommets
+
+
+
+
+Sur un gros graphe (250x250)
+
+PARCOURS PROFONDEUR
+Affichage Prefixe
+ 8  32  30  218  71  20  87  92  193  13  40  216  176  47  77  24  201  96  25  157  48  59  95  41  99  69  126  198  74  97  21  37  34  14  187  228  205  241  243  144  220  183  56  64  166  208  248  50  221  238  129  111  98  114  184  225  188  128  2  94  39  199  231  175  55  149  62  108  145  219  124  164  171  169  82  45  70  236  172  19  3  142  110  117  31  246  152  195  6  202  194  119  167  190  229  123  224  170  112  165  27  182  60  61  227  115  189  28  121  140  153  151  159  9  76  155  232  79  134  35  52  179  168  63  107  109  186  125  135  78  234  158  122  213  148  133  136  242  67  237  106  90  130  84  147  38  103  247  113  244  4  211  245  118  29  178  68  154  160  163  26  23  146  81  209  177  150  127  215  22  58  191  204  36  161  230  91  100  139  5  226  86  210  54  105  51  206  143  11  222  42  214  49  93  85  235  43  180  131  223  46  181  0 
+Composante connexe numero 1 contient 203 sommets
+ 1 
+Composante connexe numero 2 contient 1 sommets
+ 44  197  7 
+Composante connexe numero 3 contient 3 sommets
+ 10 
+Composante connexe numero 4 contient 1 sommets
+ 239  12 
+Composante connexe numero 5 contient 2 sommets
+ 15 
+Composante connexe numero 6 contient 1 sommets
+ 16 
+Composante connexe numero 7 contient 1 sommets
+ 17 
+Composante connexe numero 8 contient 1 sommets
+ 18 
+Composante connexe numero 9 contient 1 sommets
+ 83  53  33 
+Composante connexe numero 10 contient 3 sommets
+ 57 
+Composante connexe numero 11 contient 1 sommets
+ 120  65 
+Composante connexe numero 12 contient 2 sommets
+ 66 
+Composante connexe numero 13 contient 1 sommets
+ 72 
+Composante connexe numero 14 contient 1 sommets
+ 73 
+Composante connexe numero 15 contient 1 sommets
+ 75 
+Composante connexe numero 16 contient 1 sommets
+ 80 
+Composante connexe numero 17 contient 1 sommets
+ 88 
+Composante connexe numero 18 contient 1 sommets
+ 192  89 
+Composante connexe numero 19 contient 2 sommets
+ 217  101 
+Composante connexe numero 20 contient 2 sommets
+ 102 
+Composante connexe numero 21 contient 1 sommets
+ 104 
+Composante connexe numero 22 contient 1 sommets
+ 116 
+Composante connexe numero 23 contient 1 sommets
+ 132 
+Composante connexe numero 24 contient 1 sommets
+ 162  174  137 
+Composante connexe numero 25 contient 3 sommets
+ 138 
+Composante connexe numero 26 contient 1 sommets
+ 141 
+Composante connexe numero 27 contient 1 sommets
+ 156 
+Composante connexe numero 28 contient 1 sommets
+ 173 
+Composante connexe numero 29 contient 1 sommets
+ 185 
+Composante connexe numero 30 contient 1 sommets
+ 196 
+Composante connexe numero 31 contient 1 sommets
+ 200 
+Composante connexe numero 32 contient 1 sommets
+ 203 
+Composante connexe numero 33 contient 1 sommets
+ 207 
+Composante connexe numero 34 contient 1 sommets
+ 212 
+Composante connexe numero 35 contient 1 sommets
+ 233 
+Composante connexe numero 36 contient 1 sommets
+ 249  240 
+Composante connexe numero 37 contient 2 sommets
+
+Affichage Suffixe
+ 0  43  85  93  49  214  42  11  143  206  51  30  32  8  105  54  210  86  5  71  218  100  36  58  22  215  127  150  177  209  23  26  154  68  178  29  118  20  92  87  176  13  193  40  216  211  4  113  38  47  84  77  90  24  106  67  121  28  27  112  123  229  96  201  157  25  190  48  59  95  167  69  41  99  119  194  126  202  6  152  56  183  144  243  74  198  205  228  14  34  21  97  37  187  241  220  246  31  117  64  110  142  3  19  129  50  248  208  166  238  221  172  98  111  236  70  45  82  169  171  55  128  184  114  188  225  175  231  199  39  2  94  149  164  124  62  145  108  219  195  170  224  165  189  61  60  182  115  227  135  125  186  107  63  168  179  35  134  79  140  232  76  9  159  151  153  155  52  109  242  136  133  148  213  122  78  158  234  237  130  147  247  103  244  245  163  160  81  146  191  204  91  230  161  139  226  222  235  46  223  131  180  181  1  7  197  44  10  12  239  15  16  17  18  33  53  83  57  65  120  66  72  73  75  80  88  89  192  101  217  102  104  116  132  137  162  174  138  141  156  173  185  196  200  203  207  212  233  240  249 
+
+PARCOURS LARGEUR
+Sommet 0
+Sommet 43
+Sommet 46
+Sommet 181
+Sommet 193
+Sommet 85
+Sommet 199
+Sommet 235
+Sommet 223
+Sommet 13
+Sommet 93
+Sommet 39
+Sommet 231
+Sommet 131
+Sommet 176
+Sommet 49
+Sommet 2
+Sommet 94
+Sommet 175
+Sommet 180
+Sommet 40
+Sommet 118
+Sommet 216
+Sommet 214
+Sommet 222
+Sommet 55
+Sommet 20
+Sommet 29
+Sommet 92
+Sommet 211
+Sommet 245
+Sommet 42
+Sommet 128
+Sommet 171
+Sommet 178
+Sommet 237
+Sommet 87
+Sommet 4
+Sommet 11
+Sommet 45
+Sommet 126
+Sommet 140
+Sommet 184
+Sommet 188
+Sommet 149
+Sommet 164
+Sommet 169
+Sommet 26
+Sommet 68
+Sommet 153
+Sommet 106
+Sommet 58
+Sommet 113
+Sommet 129
+Sommet 244
+Sommet 143
+Sommet 70
+Sommet 82
+Sommet 194
+Sommet 79
+Sommet 90
+Sommet 114
+Sommet 225
+Sommet 202
+Sommet 246
+Sommet 124
+Sommet 23
+Sommet 154
+Sommet 163
+Sommet 151
+Sommet 67
+Sommet 22
+Sommet 36
+Sommet 38
+Sommet 247
+Sommet 19
+Sommet 50
+Sommet 238
+Sommet 206
+Sommet 236
+Sommet 119
+Sommet 134
+Sommet 232
+Sommet 24
+Sommet 84
+Sommet 144
+Sommet 172
+Sommet 182
+Sommet 6
+Sommet 31
+Sommet 152
+Sommet 167
+Sommet 62
+Sommet 145
+Sommet 219
+Sommet 209
+Sommet 221
+Sommet 160
+Sommet 159
+Sommet 121
+Sommet 135
+Sommet 179
+Sommet 242
+Sommet 215
+Sommet 100
+Sommet 191
+Sommet 204
+Sommet 47
+Sommet 147
+Sommet 103
+Sommet 3
+Sommet 248
+Sommet 117
+Sommet 51
+Sommet 123
+Sommet 35
+Sommet 76
+Sommet 155
+Sommet 77
+Sommet 130
+Sommet 183
+Sommet 243
+Sommet 98
+Sommet 60
+Sommet 195
+Sommet 56
+Sommet 97
+Sommet 69
+Sommet 190
+Sommet 108
+Sommet 81
+Sommet 177
+Sommet 9
+Sommet 28
+Sommet 224
+Sommet 125
+Sommet 52
+Sommet 168
+Sommet 136
+Sommet 86
+Sommet 127
+Sommet 208
+Sommet 5
+Sommet 91
+Sommet 142
+Sommet 64
+Sommet 110
+Sommet 30
+Sommet 105
+Sommet 112
+Sommet 229
+Sommet 220
+Sommet 74
+Sommet 205
+Sommet 241
+Sommet 111
+Sommet 61
+Sommet 21
+Sommet 41
+Sommet 99
+Sommet 48
+Sommet 59
+Sommet 95
+Sommet 146
+Sommet 150
+Sommet 27
+Sommet 189
+Sommet 170
+Sommet 186
+Sommet 63
+Sommet 133
+Sommet 210
+Sommet 226
+Sommet 166
+Sommet 71
+Sommet 139
+Sommet 230
+Sommet 32
+Sommet 54
+Sommet 96
+Sommet 157
+Sommet 198
+Sommet 228
+Sommet 34
+Sommet 165
+Sommet 115
+Sommet 107
+Sommet 109
+Sommet 148
+Sommet 218
+Sommet 161
+Sommet 8
+Sommet 201
+Sommet 25
+Sommet 14
+Sommet 187
+Sommet 37
+Sommet 227
+Sommet 213
+Sommet 122
+Sommet 78
+Sommet 158
+Sommet 234
+La 1eme composante connexe contient 203 sommet(s). Nous avons actuellement 203/250 sommets
+Sommet 1
+La 2eme composante connexe contient 1 sommet(s). Nous avons actuellement 204/250 sommets
+Sommet 7
+Sommet 197
+Sommet 44
+La 3eme composante connexe contient 3 sommet(s). Nous avons actuellement 207/250 sommets
+Sommet 10
+La 4eme composante connexe contient 1 sommet(s). Nous avons actuellement 208/250 sommets
+Sommet 12
+Sommet 239
+La 5eme composante connexe contient 2 sommet(s). Nous avons actuellement 210/250 sommets
+Sommet 15
+La 6eme composante connexe contient 1 sommet(s). Nous avons actuellement 211/250 sommets
+Sommet 16
+La 7eme composante connexe contient 1 sommet(s). Nous avons actuellement 212/250 sommets
+Sommet 17
+La 8eme composante connexe contient 1 sommet(s). Nous avons actuellement 213/250 sommets
+Sommet 18
+La 9eme composante connexe contient 1 sommet(s). Nous avons actuellement 214/250 sommets
+Sommet 33
+Sommet 53
+Sommet 83
+La 10eme composante connexe contient 3 sommet(s). Nous avons actuellement 217/250 sommets
+Sommet 57
+La 11eme composante connexe contient 1 sommet(s). Nous avons actuellement 218/250 sommets
+Sommet 65
+Sommet 120
+La 12eme composante connexe contient 2 sommet(s). Nous avons actuellement 220/250 sommets
+Sommet 66
+La 13eme composante connexe contient 1 sommet(s). Nous avons actuellement 221/250 sommets
+Sommet 72
+La 14eme composante connexe contient 1 sommet(s). Nous avons actuellement 222/250 sommets
+Sommet 73
+La 15eme composante connexe contient 1 sommet(s). Nous avons actuellement 223/250 sommets
+Sommet 75
+La 16eme composante connexe contient 1 sommet(s). Nous avons actuellement 224/250 sommets
+Sommet 80
+La 17eme composante connexe contient 1 sommet(s). Nous avons actuellement 225/250 sommets
+Sommet 88
+La 18eme composante connexe contient 1 sommet(s). Nous avons actuellement 226/250 sommets
+Sommet 89
+Sommet 192
+La 19eme composante connexe contient 2 sommet(s). Nous avons actuellement 228/250 sommets
+Sommet 101
+Sommet 217
+La 20eme composante connexe contient 2 sommet(s). Nous avons actuellement 230/250 sommets
+Sommet 102
+La 21eme composante connexe contient 1 sommet(s). Nous avons actuellement 231/250 sommets
+Sommet 104
+La 22eme composante connexe contient 1 sommet(s). Nous avons actuellement 232/250 sommets
+Sommet 116
+La 23eme composante connexe contient 1 sommet(s). Nous avons actuellement 233/250 sommets
+Sommet 132
+La 24eme composante connexe contient 1 sommet(s). Nous avons actuellement 234/250 sommets
+Sommet 137
+Sommet 162
+Sommet 174
+La 25eme composante connexe contient 3 sommet(s). Nous avons actuellement 237/250 sommets
+Sommet 138
+La 26eme composante connexe contient 1 sommet(s). Nous avons actuellement 238/250 sommets
+Sommet 141
+La 27eme composante connexe contient 1 sommet(s). Nous avons actuellement 239/250 sommets
+Sommet 156
+La 28eme composante connexe contient 1 sommet(s). Nous avons actuellement 240/250 sommets
+Sommet 173
+La 29eme composante connexe contient 1 sommet(s). Nous avons actuellement 241/250 sommets
+Sommet 185
+La 30eme composante connexe contient 1 sommet(s). Nous avons actuellement 242/250 sommets
+Sommet 196
+La 31eme composante connexe contient 1 sommet(s). Nous avons actuellement 243/250 sommets
+Sommet 200
+La 32eme composante connexe contient 1 sommet(s). Nous avons actuellement 244/250 sommets
+Sommet 203
+La 33eme composante connexe contient 1 sommet(s). Nous avons actuellement 245/250 sommets
+Sommet 207
+La 34eme composante connexe contient 1 sommet(s). Nous avons actuellement 246/250 sommets
+Sommet 212
+La 35eme composante connexe contient 1 sommet(s). Nous avons actuellement 247/250 sommets
+Sommet 233
+La 36eme composante connexe contient 1 sommet(s). Nous avons actuellement 248/250 sommets
+Sommet 240
+Sommet 249
+La 37eme composante connexe contient 2 sommet(s). Nous avons actuellement 250/250 sommets
+La 38eme composante connexe contient 1 sommet(s). Nous avons actuellement 250/250 sommets
